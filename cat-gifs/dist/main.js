@@ -5943,83 +5943,107 @@ var elm$html$Html$Events$onClick = function (msg) {
 		elm$json$Json$Decode$succeed(msg));
 };
 var author$project$View$viewGif = function (model) {
-	switch (model.$) {
-		case 'Failure':
-			return A2(
-				elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$p,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('msg error')
-							]),
-						_List_fromArray(
-							[
-								elm$html$Html$text('We are failed to get the gif for some reason. ')
-							])),
-						A2(
-						elm$html$Html$button,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('btn'),
-								elm$html$Html$Events$onClick(author$project$Types$MorePlease),
-								A2(elm$html$Html$Attributes$style, 'display', 'block')
-							]),
-						_List_fromArray(
-							[
-								elm$html$Html$text('Try Again!!!')
-							]))
-					]));
-		case 'Loading':
-			return A2(
-				elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$p,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('msg info')
-							]),
-						_List_fromArray(
-							[
-								elm$html$Html$text('Your gifs are comming, please wait...')
-							]))
-					]));
-		default:
-			var url = model.a;
-			return A2(
-				elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$button,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('btn'),
-								elm$html$Html$Events$onClick(author$project$Types$MorePlease),
-								A2(elm$html$Html$Attributes$style, 'display', 'block')
-							]),
-						_List_fromArray(
-							[
-								elm$html$Html$text('More please!')
-							])),
-						A2(
-						elm$html$Html$img,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$src(url)
-							]),
-						_List_Nil)
-					]));
-	}
+	return A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('content')
+			]),
+		_List_fromArray(
+			[
+				function () {
+				switch (model.$) {
+					case 'Failure':
+						return A2(
+							elm$html$Html$div,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									elm$html$Html$p,
+									_List_fromArray(
+										[
+											elm$html$Html$Attributes$class('msg error')
+										]),
+									_List_fromArray(
+										[
+											elm$html$Html$text('We are failed to get the gif for some reason. ')
+										])),
+									A2(
+									elm$html$Html$button,
+									_List_fromArray(
+										[
+											elm$html$Html$Attributes$class('btn'),
+											elm$html$Html$Events$onClick(author$project$Types$MorePlease),
+											A2(elm$html$Html$Attributes$style, 'display', 'block')
+										]),
+									_List_fromArray(
+										[
+											elm$html$Html$text('Try Again!!!')
+										]))
+								]));
+					case 'Loading':
+						return A2(
+							elm$html$Html$div,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									elm$html$Html$p,
+									_List_fromArray(
+										[
+											elm$html$Html$Attributes$class('msg info')
+										]),
+									_List_fromArray(
+										[
+											elm$html$Html$text('Your gifs are comming, please wait...')
+										]))
+								]));
+					default:
+						var url = model.a;
+						return A2(
+							elm$html$Html$div,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									elm$html$Html$button,
+									_List_fromArray(
+										[
+											elm$html$Html$Attributes$class('btn'),
+											elm$html$Html$Events$onClick(author$project$Types$MorePlease),
+											A2(elm$html$Html$Attributes$style, 'display', 'block')
+										]),
+									_List_fromArray(
+										[
+											elm$html$Html$text('More please!')
+										])),
+									A2(
+									elm$html$Html$img,
+									_List_fromArray(
+										[
+											elm$html$Html$Attributes$class('img-view'),
+											elm$html$Html$Attributes$src(url)
+										]),
+									_List_Nil)
+								]));
+				}
+			}()
+			]));
 };
 var elm$html$Html$h2 = _VirtualDom_node('h2');
+var author$project$View$viewHeader = function (model) {
+	return A2(
+		elm$html$Html$h2,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('header')
+			]),
+		_List_fromArray(
+			[
+				elm$html$Html$text('Random Cats')
+			]));
+};
 var author$project$View$view = function (model) {
 	return A2(
 		elm$html$Html$div,
@@ -6029,16 +6053,7 @@ var author$project$View$view = function (model) {
 			]),
 		_List_fromArray(
 			[
-				A2(
-				elm$html$Html$h2,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('title')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Random Cats')
-					])),
+				author$project$View$viewHeader(model),
 				author$project$View$viewGif(model)
 			]));
 };
