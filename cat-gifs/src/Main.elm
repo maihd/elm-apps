@@ -7,6 +7,7 @@ import Json.Decode exposing (Decoder, field, string)
 
 import Types exposing (..)
 import Giphy exposing (..)
+import View exposing (view)
 
 main =
     Browser.element
@@ -36,29 +37,3 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ h2 [] [ text "Random Cats" ] 
-        , viewGif model
-        ]
-
-viewGif : Model -> Html Msg
-viewGif model =
-    case model of
-        Failure ->
-            div []
-                [ text "I could not load a random cat for some reason." 
-                , button [ onClick MorePlease ] [ text "Try again!" ]
-                ]
-        
-        Loading ->
-            div []
-                [ text "Loading..." ]
-
-        Success url ->
-            div []
-                [ button [ onClick MorePlease, style "display" "block" ] [ text "More please!" ] 
-                , img [ src url ] []
-                ]
