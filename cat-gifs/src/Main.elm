@@ -5,6 +5,9 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode exposing (Decoder, field, string)
 
+import Types exposing (..)
+import Giphy exposing (..)
+
 main =
     Browser.element
         { init = init
@@ -12,15 +15,6 @@ main =
         , update = update 
         , subscriptions = subscriptions
         }
-
-type Model
-    = Failure
-    | Loading
-    | Success String
-
-type Msg
-    = MorePlease
-    | GotGif (Result Http.Error String)
 
 init : () -> (Model, Cmd Msg)
 init _ = 
@@ -68,14 +62,3 @@ viewGif model =
                 [ button [ onClick MorePlease, style "display" "block" ] [ text "More please!" ] 
                 , img [ src url ] []
                 ]
-
-getRandomCatGif : Cmd Msg
-getRandomCatGif = 
-    Http.get
-        { url = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cat"
-        , expect = Http.expectJson GotGif gifDecoder
-        }
-
-gifDecoder : Decoder String
-gifDecoder = 
-    field "data" (field "image_url" string)
