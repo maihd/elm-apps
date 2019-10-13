@@ -1,5 +1,7 @@
 import Browser
 import Html exposing (..)
+import Html.Events exposing (..)
+import Html.Attributes exposing (..)
 import Http
 
 main = 
@@ -10,14 +12,19 @@ main =
         , update = update
         }
 
-type Model
+type SearchBook
     = Failure
     | Loading
     | Success String
 
+type alias Model =
+    { query : String
+    , searchBook : SearchBook
+    }
+
 init : () -> (Model, Cmd Msg)
 init _ =
-    ( Loading
+    ( { query = "", searchBook = Loading }
     , Http.get
         { url = "https://elm-lang.org/assets/public-opinion.txt"
         , expect = Http.expectString GotContent
@@ -26,6 +33,7 @@ init _ =
 
 type Msg
     = GotContent (Result Http.Error String)
+    | QueryChange String
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -33,10 +41,13 @@ update msg model =
         GotContent result ->
             case result of
                 Ok content ->
-                    (Success content, Cmd.none)
+                    ({ model | searchBook = Success content }, Cmd.none)
 
                 Err _ ->
-                    (Failure, Cmd.none)
+                    ({ model | searchBook = Failure }, Cmd.none)
+
+        QueryChange query ->
+            ({ model | query = query }, Cmd.none) 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -44,12 +55,16 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model = 
-    case model of
-        Failure -> 
-            text "I was unable to load your book."
+    div []
+        [ input [ placeholder "Type to search books...", value model.query, onInput QueryChange, style "display" "block" ] []
+        , case model.searchBook of
+            Failure -> 
+                text "I was unable to load your book."
 
-        Loading ->
-            text "Loading..."
+            Loading ->
+                text "Loading..."
 
-        Success content ->
-            pre [] [ text content ]
+            Success content ->
+                pre [] [ text content ]
+        ]
+    
