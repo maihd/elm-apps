@@ -8,11 +8,19 @@
 
     <body>
         <div id="elm-node"></div>
-        <script src=".github/assets/js/main.js"></script>
+        <script src=".github/assets/js/main.js" async onload="init()" onerror="handlError()"></script>
         <script>
-            Elm.Main.init({
-                node: document.querySelector("#elm-node")
-            });
+            function init() 
+            {
+                Elm.Main.init({
+                    node: document.querySelector("#elm-node")
+                });
+            }
+
+            function handlError()
+            {
+                console.error("ERROR");
+            }
         </script>
     </body>
 </html>
