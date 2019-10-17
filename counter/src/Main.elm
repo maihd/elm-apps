@@ -1,6 +1,7 @@
 import Browser
 import Html exposing (..)
 import Html.Events exposing (..)
+import Html.Attributes exposing (..)
 
 import Types exposing (..)
 
@@ -20,9 +21,24 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [] 
-        [ text (String.fromInt model)
-        , button [ onClick Increment ] [ text "Increment" ]
-        , button [ onClick Decrement ] [ text "Decrement" ]
-        , button [ onClick Reset ] [ text "Reset" ]
+    div [ class "wrapper" ] 
+        [ viewValue model
+        , div 
+            [ class "btn-container" ]
+            [ viewButton "fa-minus"     (onClick Decrement)
+            , viewButton "fa-sync-alt"  (onClick Reset)
+            , viewButton "fa-plus"      (onClick Increment)
+            ]
         ]
+
+viewButton : String -> Attribute Msg -> Html Msg
+viewButton icon onClick =
+    button 
+        [ onClick
+        , class "btn"
+        ]
+        [ i [ class ("fa " ++ icon) ] [] ]
+
+viewValue : Model -> Html Msg
+viewValue model = 
+    p [ class "counter" ] [ text (String.fromInt model) ]
