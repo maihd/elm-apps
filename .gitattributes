@@ -1,0 +1,8 @@
+# Sources
+*.js        text diff=js
+*.elm       text diff=elm
+*.css       text diff=css
+*.html      text diff=html
+
+# Compile target files
+*.elm.js    binary

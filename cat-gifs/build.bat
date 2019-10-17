@@ -1,3 +1,3 @@
 @echo off
 
-elm make src/Main.elm --output=dist/main.js
+elm make src/Main.elm --output=dist/main.elm.js

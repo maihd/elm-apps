@@ -1,1 +1,1 @@
-elm make src/Main.elm --output=assets/js/main.js
+elm make src/Main.elm --output=assets/js/main.elm.js
